@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.time.StopWatch;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
@@ -33,9 +34,10 @@ import utility.Delete_Files;
 import utility.TakeScreenshoot;
 
 public class alltypepayments extends BaseDriver{
-	TakeScreenshoot takescreenshot=new TakeScreenshoot(driver, null);
-	StopWatch stopWatch;
 	
+	StopWatch stopWatch;
+	private WebDriver driver = CMS_browser.getDriver();
+	TakeScreenshoot takescreenshot=new TakeScreenshoot(driver, null);
 	@BeforeTest
 	public void beforetest() throws IOException
 	{
@@ -47,8 +49,8 @@ public class alltypepayments extends BaseDriver{
 		spark = new ExtentSparkReporter("ExtentReport.html");
 		extent.attachReporter(spark);
 		BaseDriver.GetData();
-//		WebDriverManager.chromedriver().setup();
-		driver = CMS_browser.openBrowser(url);
+////		WebDriverManager.chromedriver().setup();
+//		driver = CMS_browser.openBrowser(url);
 		stopWatch = new StopWatch();
 		
 	}
