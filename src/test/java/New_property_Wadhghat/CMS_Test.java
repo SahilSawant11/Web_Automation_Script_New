@@ -66,6 +66,7 @@ public class CMS_Test extends BaseDriver{
 		loginpage.Enter_user_name(userid, driver);
 		
 		loginpage.Enter_password(password);
+		Thread.sleep(10000);
 		Scanner scanner = new Scanner(System.in);
      System.out.print("Can We start Automation: ");
 		
