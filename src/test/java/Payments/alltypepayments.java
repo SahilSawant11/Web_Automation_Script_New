@@ -38,6 +38,7 @@ public class alltypepayments extends BaseDriver{
 	StopWatch stopWatch;
 	private WebDriver driver = CMS_browser.getDriver();
 	TakeScreenshoot takescreenshot=new TakeScreenshoot(driver, null);
+	/*
 	@BeforeTest
 	public void beforetest() throws IOException
 	{
@@ -68,7 +69,7 @@ public class alltypepayments extends BaseDriver{
 		
 		try
 		{
-			loginpage.click_logout(driver);
+			loginpage.click_logout(driver);// not req
 			loginpage.Enter_user_name(userid, driver);
 			loginpage.Enter_password(password);
 			loginpage.Click_login_btn(driver);	
@@ -78,8 +79,9 @@ public class alltypepayments extends BaseDriver{
 			
 		}
 	}
-	/*
-	@Test(priority = 2,dependsOnMethods = "loginPage")
+	*/
+	
+	@Test(priority = 2)
 	public void CashPayment() throws Exception
 	{
 		test = extent.createTest("cash Payment");
@@ -93,12 +95,12 @@ public class alltypepayments extends BaseDriver{
 		offlinepaymentpage.counterPayment(driver, url);
 		offlinepaymentpage.Click_property_no_radio_btn(driver);
 			
-		offlinepaymentpage.Select_node_no(driver, node1);
-		offlinepaymentpage.Select_sector_no(driver, sector1);
-		offlinepaymentpage.Enter_property_no(driver, PropertyNo1);
+		offlinepaymentpage.Select_node_no(driver, node7);
+		offlinepaymentpage.Select_sector_no(driver, sector7);
+		offlinepaymentpage.Enter_property_no(driver, PropertyNo7);
 		/////
 		
-		test.log(Status.INFO, "Property for Cash Payment : "+node1+"-"+sector1+"-"+PropertyNo1);
+		test.log(Status.INFO, "Property for Cash Payment : "+node7+"-"+sector7+"-"+PropertyNo7);
 		stopWatch.start();
 		offlinepaymentpage.Click_search_property();
 			
@@ -162,9 +164,9 @@ public class alltypepayments extends BaseDriver{
 		offlinepaymentpage.counterPayment(driver, url);
 		offlinepaymentpage.Click_property_no_radio_btn(driver);
 			
-		offlinepaymentpage.Select_node_no(driver, node1);
-		offlinepaymentpage.Select_sector_no(driver, sector1);
-		offlinepaymentpage.Enter_property_no(driver, PropertyNo1);
+		offlinepaymentpage.Select_node_no(driver, node7);
+		offlinepaymentpage.Select_sector_no(driver, sector7);
+		offlinepaymentpage.Enter_property_no(driver, PropertyNo7);
 		/////
 		
 		offlinepaymentpage.Click_search_property();
@@ -186,7 +188,7 @@ public class alltypepayments extends BaseDriver{
 
 	}
 //	enabled = false
-	@Test(priority = 5, dependsOnMethods = "loginPage")
+	@Test(priority = 5)
 	public void AdvancePayment() throws Exception
 	{
 		
@@ -202,9 +204,9 @@ public class alltypepayments extends BaseDriver{
 		offlinepaymentpage.counterPayment(driver, url);
 		offlinepaymentpage.Click_property_no_radio_btn(driver);
 			
-		offlinepaymentpage.Select_node_no(driver, node4);
-		offlinepaymentpage.Select_sector_no(driver, sector4);
-		offlinepaymentpage.Enter_property_no(driver, PropertyNo4);
+		offlinepaymentpage.Select_node_no(driver, node7);
+		offlinepaymentpage.Select_sector_no(driver, sector7);
+		offlinepaymentpage.Enter_property_no(driver, PropertyNo7);
 		/////
 		
 		test.log(Status.INFO, "Property for Advance Payment : "+node4+"-"+sector4+"-"+PropertyNo4);
@@ -244,7 +246,7 @@ public class alltypepayments extends BaseDriver{
 
 	}
 	
-	*/
+	
 	@Test(priority = 3)  //,dependsOnMethods = "loginPage"
 	public void chequePayment() throws Exception
 	{
