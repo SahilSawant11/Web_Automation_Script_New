@@ -6,30 +6,18 @@
       <class name="Payments.alltypepayments">
         <methods>
           <include name="aftermethod"/>
-          <include name="cheque_clear"/>
-          <include name="chequePayment"/>
-          <include name="beforetest"/>
+          <include name="CashPayment"/>
+          <include name="AdvancePayment"/>
           <include name="aftertest"/>
         </methods>
       </class> <!-- Payments.alltypepayments -->
     </classes>
   </test> <!-- All Payments(failed) -->
-  <test thread-count="5" name="CollectionReport(failed)">
-    <classes>
-      <class name="Reports.CollectionReports">
-        <methods>
-          <include name="collectiontest"/>
-          <include name="tearDown"/>
-        </methods>
-      </class> <!-- Reports.CollectionReports -->
-    </classes>
-  </test> <!-- CollectionReport(failed) -->
   <test thread-count="5" name="ReportEngine(failed)">
     <classes>
       <class name="Reports.ReportEngine">
         <methods>
           <include name="tearDown"/>
-          <include name="Notice_report"/>
           <include name="Karakarni_report"/>
         </methods>
       </class> <!-- Reports.ReportEngine -->

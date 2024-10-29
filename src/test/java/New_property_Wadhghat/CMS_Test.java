@@ -104,12 +104,12 @@ public class CMS_Test extends BaseDriver{
 		CMS_Page cmspage = new CMS_Page(driver);
 		
 		/////
-		cmspage.select_node_no(node, driver);
+		cmspage.select_node_no(node5, driver);
 		test.info("Time duration of opening Registration page: "+TimeUnit.NANOSECONDS.toSeconds(stopWatch.getNanoTime())+" sec.");
 		stopWatch.stop();
 		/////
 		
-		cmspage.select_sector_no(sector, driver);
+		cmspage.select_sector_no(sector5, driver);
 		
 		/////
 		stopWatch.reset();
@@ -129,8 +129,8 @@ public class CMS_Test extends BaseDriver{
 		test.info("Time duration of generating New Property number: "+TimeUnit.NANOSECONDS.toSeconds(stopWatch.getNanoTime())+" sec.");
 		stopWatch.stop();
 		
-		test.info("Property "+ node+""+sector+" - "+PropertyNo);
-		FileHistory.FileData(url,node, sector, PropertyNo);
+		test.info("Property "+ node5+""+sector5+" - "+PropertyNo);
+		FileHistory.FileData(url,node5, sector5, PropertyNo);
 	}
 	
 	@Test(priority = 4, dependsOnMethods = "cmsRegisterPageWadhghat")

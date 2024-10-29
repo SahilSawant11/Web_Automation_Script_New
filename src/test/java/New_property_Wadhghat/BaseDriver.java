@@ -47,8 +47,16 @@ public class BaseDriver {
 	static public String PropertyNo4;
 	
 	static public String node5;				// for baramati cheque fail scenario
-	static public String sector5;
+	static public String sector5;			// properties from node5 onwards are of BARAMATI
 	static public String PropertyNo5;
+	
+	static public String node6;				
+	static public String sector6;			// properties from node5 onwards are of BARAMATI
+	static public String PropertyNo6;		//BARAMATI
+	
+	static public String node7;				
+	static public String sector7;			// properties from node5 onwards are of BARAMATI
+	static public String PropertyNo7;		//BARAMATI
 	
 	static public String akshep_no;
 	public TakeScreenshoot takescreenshot=new TakeScreenshoot(driver, null);
@@ -270,6 +278,31 @@ public class BaseDriver {
 		c = s.getRow(15).getCell(2);
 		c.setCellType(CellType.STRING);
 		PropertyNo5 = c.getStringCellValue();
+		
+		c = s.getRow(16).getCell(0);
+		c.setCellType(CellType.STRING);
+		node6 = c.getStringCellValue();
+		
+		c = s.getRow(16).getCell(1);
+		c.setCellType(CellType.STRING);
+		sector6 = c.getStringCellValue();
+		
+		c = s.getRow(16).getCell(2);
+		c.setCellType(CellType.STRING);
+		PropertyNo6 = c.getStringCellValue();
+		
+		c = s.getRow(17).getCell(0);
+		c.setCellType(CellType.STRING);
+		node7 = c.getStringCellValue();
+		
+		c = s.getRow(17).getCell(1);
+		c.setCellType(CellType.STRING);
+		sector7 = c.getStringCellValue();
+		
+		c = s.getRow(17).getCell(2);
+		c.setCellType(CellType.STRING);
+		PropertyNo7 = c.getStringCellValue();
+		
 		
 		c = s.getRow(1).getCell(5);
 		c.setCellType(CellType.NUMERIC);
