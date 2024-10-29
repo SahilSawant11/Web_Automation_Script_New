@@ -9,7 +9,8 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.time.StopWatch;
-
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
@@ -33,9 +34,10 @@ import utility.Delete_Files;
 import utility.TakeScreenshoot;
 
 public class alltypepayments extends BaseDriver{
-	TakeScreenshoot takescreenshot=new TakeScreenshoot(driver, null);
-	StopWatch stopWatch;
 	
+	StopWatch stopWatch;
+	private WebDriver driver = CMS_browser.getDriver();
+	TakeScreenshoot takescreenshot=new TakeScreenshoot(driver, null);
 	@BeforeTest
 	public void beforetest() throws IOException
 	{
@@ -47,8 +49,8 @@ public class alltypepayments extends BaseDriver{
 		spark = new ExtentSparkReporter("ExtentReport.html");
 		extent.attachReporter(spark);
 		BaseDriver.GetData();
-//		WebDriverManager.chromedriver().setup();
-		driver = CMS_browser.openBrowser(url);
+////		WebDriverManager.chromedriver().setup();
+//		driver = CMS_browser.openBrowser(url);
 		stopWatch = new StopWatch();
 		
 	}
@@ -61,6 +63,7 @@ public class alltypepayments extends BaseDriver{
 		LoginPage loginpage = new LoginPage(driver);
 		loginpage.Enter_user_name(userid, driver);
 		loginpage.Enter_password(password);
+		Thread.sleep(10000);
 		loginpage.Click_login_btn(driver);
 		
 		try
@@ -75,7 +78,7 @@ public class alltypepayments extends BaseDriver{
 			
 		}
 	}
-	
+	/*
 	@Test(priority = 2,dependsOnMethods = "loginPage")
 	public void CashPayment() throws Exception
 	{
@@ -241,7 +244,8 @@ public class alltypepayments extends BaseDriver{
 
 	}
 	
-	@Test(priority = 3,dependsOnMethods = "loginPage")
+	*/
+	@Test(priority = 3)  //,dependsOnMethods = "loginPage"
 	public void chequePayment() throws Exception
 	{
 		test = extent.createTest("Cheque Payment");
@@ -255,19 +259,20 @@ public class alltypepayments extends BaseDriver{
 		offlinepaymentpage.counterPayment(driver, url);
 		offlinepaymentpage.Click_property_no_radio_btn(driver);
 			
-		offlinepaymentpage.Select_node_no(driver, node2);
-		offlinepaymentpage.Select_sector_no(driver, sector2);
-		offlinepaymentpage.Enter_property_no(driver, PropertyNo2);
+		offlinepaymentpage.Select_node_no(driver, node5);
+		offlinepaymentpage.Select_sector_no(driver, sector5);
+		offlinepaymentpage.Enter_property_no(driver, PropertyNo5);
 		/////
-		test.log(Status.INFO, "Property for cheque Payment : "+node2+"-"+sector2+"-"+PropertyNo2);
+		test.log(Status.INFO, "Property for cheque Payment : "+node5+"-"+sector5+"-"+PropertyNo5);
 		stopWatch.start();
 		offlinepaymentpage.Click_search_property();
 			
 		counterpayment = new CounterPaymentPage(driver);
-		counterpayment.Select_Finalcheckbox(driver);
+		counterpayment.Select_APartcheckbox(driver);
+	//	counterpayment.Select_Finalcheckbox(driver);
 		Thread.sleep(5000);
 		
-		if (node3=="PMC") {
+		if (node3=="PMC") {			
 			
 			try {
 				counterpayment.Select_APartcheckbox(driver);
@@ -316,11 +321,13 @@ public class alltypepayments extends BaseDriver{
 		}
 		counterpayment.confirm_payment(driver);
 		counterpayment.Check_transaction_id(driver);
-		counterpayment.Click_receipts_btn(driver);
-		counterpayment.label_downloadReceipt(driver);
-		counterpayment.downloadReceipt(driver);
+		
+	//	counterpayment.Click_receipts_btn(driver);
+	//	counterpayment.label_downloadReceipt(driver);
+	//	counterpayment.downloadReceipt(driver);
 		
 		test.info("Time duration of Searching property on counter payment page: "+TimeUnit.NANOSECONDS.toSeconds(stopWatch.getNanoTime())+" sec.");
+		counterpayment.compareUpicIds(test);
 		stopWatch.stop();
 		/////
 		
@@ -335,6 +342,73 @@ public class alltypepayments extends BaseDriver{
 	}
 	
 	@Test(priority = 4,dependsOnMethods = "chequePayment")
+	public void cheque_fail() throws Exception
+	{
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		test = extent.createTest("Cheque fail");
+		CounterPaymentPage counterpayment = null;
+		stopWatch = new StopWatch();
+
+		DDChequeclearPage DDchequeapproval = new DDChequeclearPage(driver);
+		DDchequeapproval.DDchequeApprovalpage(url, driver);
+		DDchequeapproval.pageloading(driver);
+		DDchequeapproval.Enter_ChequeNo("11223344", driver);
+		DDchequeapproval.SelectNode_filter(node5, driver);
+		
+		
+		DDchequeapproval.SelectSec_filter(sector5, driver);
+		
+		DDchequeapproval.Click_serachBTN (driver);
+		DDchequeapproval.SelectCheque(driver);
+		
+		String chequeforclearence=TakeScreenshoot.GetScreenshotFullBase64(driver);
+		test.pass("selected Cheque for Not Clearence",MediaEntityBuilder.createScreenCaptureFromBase64String(chequeforclearence).build());
+		
+		stopWatch.start();
+		DDchequeapproval.ChequefailBtn(driver);
+		DDchequeapproval.Yes_popUp_NotCleared(driver);
+		DDchequeapproval.WaitTillGetClear(driver);
+		test.info("Time duration of Not Clearing Cheque was: "+TimeUnit.NANOSECONDS.toSeconds(stopWatch.getNanoTime())+" sec.");
+		stopWatch.stop();
+		
+		
+		
+		OfflinePaymentPage offlinepaymentpage = new OfflinePaymentPage(driver);
+		offlinepaymentpage.offlinePaymentPage(url, driver);
+		
+		offlinepaymentpage = new OfflinePaymentPage(driver);
+		offlinepaymentpage.counterPayment(driver, url);
+		offlinepaymentpage.Click_property_no_radio_btn(driver);
+			
+		offlinepaymentpage.Select_node_no(driver, node5);
+		offlinepaymentpage.Select_sector_no(driver, sector5);
+		offlinepaymentpage.Enter_property_no(driver, PropertyNo5);
+		/////
+		
+		offlinepaymentpage.Click_search_property();
+		js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+
+		String CounterafterChequeFail=TakeScreenshoot.GetScreenshotFullBase64(driver);
+		test.pass("Counter After Cheque Fail",MediaEntityBuilder.createScreenCaptureFromBase64String(CounterafterChequeFail).build());
+		
+		
+		try {
+			counterpayment = new CounterPaymentPage(driver);
+			counterpayment.Check_is_penalty_Visible(driver);
+			test.log(Status.PASS, "Counter is Penalized");
+			assertTrue(true, "Counter is Penalized");
+			
+		} catch (Exception e) {
+			test.log(Status.FAIL, "Counter is not Penalized ");
+			
+			assertTrue(false, "Counter is not Penalized");
+		}
+
+	}
+	
+	
+	/*
+	@Test(priority = 5,dependsOnMethods = "chequePayment")
 	public void cheque_clear() throws Exception
 	{
 		
@@ -346,10 +420,10 @@ public class alltypepayments extends BaseDriver{
 		DDchequeapproval.DDchequeApprovalpage(url, driver);
 		DDchequeapproval.pageloading(driver);
 		DDchequeapproval.Enter_ChequeNo("11223344", driver);
-		DDchequeapproval.SelectNode_filter(node2, driver);
+		DDchequeapproval.SelectNode_filter(node5, driver);
 		
 		
-		DDchequeapproval.SelectSec_filter(sector2, driver);
+		DDchequeapproval.SelectSec_filter(sector5, driver);
 		
 		DDchequeapproval.Click_serachBTN (driver);
 		DDchequeapproval.SelectCheque(driver);
@@ -373,8 +447,8 @@ public class alltypepayments extends BaseDriver{
 		offlinepaymentpage.counterPayment(driver, url);
 		offlinepaymentpage.Click_property_no_radio_btn(driver);
 			
-		offlinepaymentpage.Select_node_no(driver, node2);
-		offlinepaymentpage.Select_sector_no(driver, sector2);
+		offlinepaymentpage.Select_node_no(driver, node5);
+		offlinepaymentpage.Select_sector_no(driver, sector5);
 		offlinepaymentpage.Enter_property_no(driver, PropertyNo2);
 		/////
 		
@@ -400,7 +474,8 @@ public class alltypepayments extends BaseDriver{
 
 	}
 	
-		
+
+	
 	@Test(priority = 6,dependsOnMethods = "loginPage")
 	public void Card() throws Exception
 	{
@@ -525,7 +600,7 @@ public class alltypepayments extends BaseDriver{
 
 	}
 	
-	
+	*/
 	
 	@AfterMethod
 	public void aftermethod(ITestResult result,java.lang.reflect.Method m)

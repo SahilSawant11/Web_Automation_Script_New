@@ -46,6 +46,10 @@ public class BaseDriver {
 	static public String sector4;
 	static public String PropertyNo4;
 	
+	static public String node5;				// for baramati cheque fail scenario
+	static public String sector5;
+	static public String PropertyNo5;
+	
 	static public String akshep_no;
 	public TakeScreenshoot takescreenshot=new TakeScreenshoot(driver, null);
 	static public int financeYear;
@@ -255,7 +259,17 @@ public class BaseDriver {
 		c.setCellType(CellType.STRING);
 		PropertyNo4 = c.getStringCellValue();
 		
+		c = s.getRow(15).getCell(0);
+		c.setCellType(CellType.STRING);
+		node5 = c.getStringCellValue();
 		
+		c = s.getRow(15).getCell(1);
+		c.setCellType(CellType.STRING);
+		sector5 = c.getStringCellValue();
+		
+		c = s.getRow(15).getCell(2);
+		c.setCellType(CellType.STRING);
+		PropertyNo5 = c.getStringCellValue();
 		
 		c = s.getRow(1).getCell(5);
 		c.setCellType(CellType.NUMERIC);

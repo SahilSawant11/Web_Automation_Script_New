@@ -7,18 +7,24 @@
     <class name="New_property_Wadhghat.CMS_Test"/>
     </classes>
   </test>
+ 
+<test name="All Payments">
+	<classes>
+		<class name="Payments.alltypepayments"/>
+	</classes>
+</test>
 
-  <test name="CollectionReport">
+<test name="CollectionReport">
   <classes>
     <class name="Reports.CollectionReports"/>
-    </classes>
-  </test> <!-- Test -->
+  </classes>
+</test> <!-- Test -->
   
-    <test name="ReportEngine">
-  <classes>
-    <class name="Reports.ReportEngine"/>
+<test name="ReportEngine">
+	<classes>
+    	<class name="Reports.ReportEngine"/>
     </classes>
-  </test> <!-- Test -->
+</test> <!-- Test -->
   
   
   
